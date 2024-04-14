@@ -1,7 +1,7 @@
 //LLRB<T>5.0
 //@author SKX
-#ifndef myLLRB
-#define myLLRB
+#ifndef SKX_LLRB
+#define SKX_LLRB
 //以前版本存在内存泄漏和非法delete,请勿使用
 #include<iostream>//Qs接口和showTree接口需要调用std::cout和std::string,可以删除
 #include <string>

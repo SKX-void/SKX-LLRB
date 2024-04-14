@@ -1,16 +1,17 @@
 //LLRB<T>5.0
+//@author SKX
 #ifndef myLLRB
 #define myLLRB
-//ÒÔÇ°°æ±¾´æÔÚÄÚ´æĞ¹Â©ºÍ·Ç·¨delete,ÇëÎğÊ¹ÓÃ
-#include<iostream>//Qs½Ó¿ÚºÍshowTree½Ó¿ÚĞèÒªµ÷ÓÃstd::coutºÍstd::string,¿ÉÒÔÉ¾³ı
+//ä»¥å‰ç‰ˆæœ¬å­˜åœ¨å†…å­˜æ³„æ¼å’Œéæ³•delete,è¯·å‹¿ä½¿ç”¨
+#include<iostream>//Qsæ¥å£å’ŒshowTreeæ¥å£éœ€è¦è°ƒç”¨std::coutå’Œstd::string,å¯ä»¥åˆ é™¤
 #include <string>
-#include<sstream>//Qs¸ÄĞ´³Éostringstream·½·¨
-#include<fstream>//ËùÒÔ°üº¬ÁËÁ½¸öÁ÷Í·ÎÄ¼ş
-//Èç¹û×Ô¶¨Òå½á¹¹Ìå´«Èë,ĞèÒªÖØÔØ±È½Ï,¸´ÖÆ,¸³Öµ,Êı¾İÁ÷<<(¿ÉÑ¡)ÔËËã·û
+#include<sstream>//Qsæ”¹å†™æˆostringstreamæ–¹æ³•
+#include<fstream>//æ‰€ä»¥åŒ…å«äº†ä¸¤ä¸ªæµå¤´æ–‡ä»¶
+//å¦‚æœè‡ªå®šä¹‰ç»“æ„ä½“ä¼ å…¥,éœ€è¦é‡è½½æ¯”è¾ƒ,å¤åˆ¶,èµ‹å€¼,æ•°æ®æµ<<(å¯é€‰)è¿ç®—ç¬¦
 template<typename T = int>
 class LLRB {
 private:
-	//ÄÚ²¿Êı¾İ½á¹¹
+	//å†…éƒ¨æ•°æ®ç»“æ„
 	enum { red = 0, black = 1 };
 	struct Tree
 	{
@@ -19,19 +20,19 @@ private:
 		Tree* l = 0x0, * r = 0x0;
 	};
 	Tree* root;
-	//²Ù×÷×é¼şÄ£¿é
-	//¹¹Ôì
+	//æ“ä½œç»„ä»¶æ¨¡å—
+	//æ„é€ 
 	bool ClearTree(Tree* node, Tree* last);
-	//²éÕÒ×é¼ş
+	//æŸ¥æ‰¾ç»„ä»¶
 	bool do_SearchNode(const T& key, Tree* root, Tree*& get_p_of_key, Tree*& get_last_of_p);
-	//Æ½ºâÆ÷
+	//å¹³è¡¡å™¨
 	int toBalance(Tree*& p);
 	bool L_Rotate(Tree*& node);
 	bool R_Rotate(Tree*& node);
-	//²åÈë
+	//æ’å…¥
 	int do_in(const T& key, Tree*& p);
 	bool CheckRoot();
-	//É¾³ı
+	//åˆ é™¤
 	struct Queue
 	{
 		Tree* t = 0x0;
@@ -44,10 +45,10 @@ private:
 	bool do_R_downRed(Tree*& p, bool& out, Tree*& outnode, Tree* last);
 	bool do_L_downRed(Tree*& p, bool& out, Tree*& outnode, Tree* last);
 
-	//¼ì²éµã×é¼ş
+	//æ£€æŸ¥ç‚¹ç»„ä»¶
 	bool getBlance(Tree* p, int deep, int lastdeep);
 	bool do_show(Tree* root);
-	//¿ÉÑ¡¹¦ÄÜ
+	//å¯é€‰åŠŸèƒ½
 	class showQue {
 		struct Que {
 			int deep;
@@ -69,28 +70,28 @@ private:
 		void show() { Que* p = root; while (p) { std::cout << p->show << '\n'; p = p->next; } }
 	};
 	void Que(Tree* p, showQue& s, int deep);
-	//ÉèÖÃ·Ç·¨²Ù×÷
-	LLRB(const LLRB&){}//¸´ÖÆ
-	LLRB& operator=(const LLRB&){}//¸³Öµ
+	//è®¾ç½®éæ³•æ“ä½œ
+	LLRB(const LLRB&){}//å¤åˆ¶
+	LLRB& operator=(const LLRB&){}//èµ‹å€¼
 public:
-	//¹¹Ôì×é¼ş
+	//æ„é€ ç»„ä»¶
 	LLRB<T>(const T& key);
 	LLRB<T>();
 	~LLRB<T>();
-	//²Ù×÷×é¼ş
+	//æ“ä½œç»„ä»¶
 	bool search(const T& key);
 	int in(const T& key);
 	int out(const T& key);
-	//¼ì²é×é¼ş
-	int CheckBalance();//¼ì²éÊ÷µÄÆ½ºâĞÔ,Í¬Ê±·µ»ØÊ÷¸ß(Ò»Ö¦ºÚ½Úµã¸öÊı)
-	bool showTree();//Ë³Ğò±éÀúÊ÷
-	///¿ÉÑ¡¹¦ÄÜ
-	void Qs(Tree* p = 0x0);//Õ¹Ê¾Ê÷µÄ½á¹¹,ĞèÒªshowQueÀà
-	//ÖØÔØ×é¼ş
+	//æ£€æŸ¥ç»„ä»¶
+	int CheckBalance();//æ£€æŸ¥æ ‘çš„å¹³è¡¡æ€§,åŒæ—¶è¿”å›æ ‘é«˜(ä¸€æé»‘èŠ‚ç‚¹ä¸ªæ•°)
+	bool showTree();//é¡ºåºéå†æ ‘
+	///å¯é€‰åŠŸèƒ½
+	void Qs(Tree* p = 0x0);//å±•ç¤ºæ ‘çš„ç»“æ„,éœ€è¦showQueç±»
+	//é‡è½½ç»„ä»¶
 	LLRB<T>& operator+(const T& key);
 	LLRB<T>& operator-(const T& key);
 };
-//¹¹Ôì
+//æ„é€ 
 template<typename T>
 LLRB<T>::LLRB<T>(const T& key) { root = new Tree; root->key = new T; *root->key = key; }
 template<typename T>
@@ -108,7 +109,7 @@ bool LLRB<T>::ClearTree(Tree* node, Tree* last) {
 	return true;
 }
 
-//¹«ÓÃ¹¤¾ß
+//å…¬ç”¨å·¥å…·
 template<typename T>
 bool LLRB<T>::search(const T& key) {
 	Tree* last = 0x0, * p = 0x0;
@@ -124,14 +125,14 @@ bool LLRB<T>::do_SearchNode(const T& key, Tree* root, Tree*& p, Tree*& last)
 	else return do_SearchNode(key, root->r, p, last);
 }
 
-//Æ½ºâÆ÷
+//å¹³è¡¡å™¨
 template<typename T>
 int LLRB<T>::toBalance(Tree*& p) {
 	if (!p)return -1;
 	bool redo = true;
 	while (redo) {
 		redo = false;
-		if (p->r)//ÎªÁË·ÀÖ¹¶Ô¿ÕÖ¸Õë½øĞĞ²Ù×÷
+		if (p->r)//ä¸ºäº†é˜²æ­¢å¯¹ç©ºæŒ‡é’ˆè¿›è¡Œæ“ä½œ
 			if (!p->r->color) { L_Rotate(p); redo = true; }
 		if (p->l) {
 			if (p->l->l)
@@ -166,7 +167,7 @@ bool LLRB<T>::R_Rotate(Tree*& node)
 	return true;
 }
 
-//²åÈë
+//æ’å…¥
 template<typename T>
 int LLRB<T>::in(const T& key) {
 	if (root == 0x0) {
@@ -198,12 +199,12 @@ bool LLRB<T>::CheckRoot() {
 	else root->color = black; return false;
 }
 
-//É¾³ı
+//åˆ é™¤
 template<typename T>
 int LLRB<T>::out(const T& key) {
 	Tree* p = 0x0, * last = 0x0;
-	if (!do_SearchNode(key, root, p, last)) { return -1; }//Î´ÕÒµ½
-	if (!p->color)//ºìÒ¶
+	if (!do_SearchNode(key, root, p, last)) { return -1; }//æœªæ‰¾åˆ°
+	if (!p->color)//çº¢å¶
 		if (!p->l) { delete p->key; delete p; last->l = 0x0; return 1; }
 	nodeOut(p, key);
 	return 1;
@@ -214,14 +215,14 @@ int LLRB<T>::nodeOut(Tree* p, const T& key) {
 		if (p->l) { delete root->key; root->key = root->l->key; delete root->l; root->l = 0x0; }
 		else { delete root->key; delete root; root = 0x0; }
 		return 1;
-	}//ÌØÊâÇé¿ö,¸ù,½Úµã<3
-	bool hasOut = false, finish = false, change = false;//×óÓÒÇé¿ö
-	Queue* que = 0x0;//Á÷¶¯¶ÓÁĞ
+	}//ç‰¹æ®Šæƒ…å†µ,æ ¹,èŠ‚ç‚¹<3
+	bool hasOut = false, finish = false, change = false;//å·¦å³æƒ…å†µ
+	Queue* que = 0x0;//æµåŠ¨é˜Ÿåˆ—
 	Tree* redBranch = 0x0, * last = 0x0;
 	if (!checkred(root, redBranch, last, 0x0))
 		if (redBranch) {
 			downRed(redBranch, key, que, finish, last);
-			if (finish)return 1;//ÏÂ½µºì½Úµã¹ı³ÌÒÑ¾­Íê³Éout²Ù×÷
+			if (finish)return 1;//ä¸‹é™çº¢èŠ‚ç‚¹è¿‡ç¨‹å·²ç»å®Œæˆoutæ“ä½œ
 			hasOut = true;
 		}
 		else {
@@ -236,7 +237,7 @@ int LLRB<T>::nodeOut(Tree* p, const T& key) {
 			hasOut = true;
 		}
 	Tree* redlast = 0x0;
-	bool tar = false, gred = false;//µİ¹é¿ª¹Ø
+	bool tar = false, gred = false;//é€’å½’å¼€å…³
 	if (p->key)	do_getQueue(key, root, 0x0, redlast, que, tar, gred);
 	if (que) {
 		Queue* head = que, * tail = que;
@@ -259,7 +260,7 @@ int LLRB<T>::nodeOut(Tree* p, const T& key) {
 		if (que->last)while (que->last) { que = que->last; delete que->next; }
 		else while (que->next) { que = que->next; delete que->last; }
 	delete que;
-	delete redlast->l; 	redlast->l = 0x0;//¼õÉÙÒ»¸ö½Úµã
+	delete redlast->l; 	redlast->l = 0x0;//å‡å°‘ä¸€ä¸ªèŠ‚ç‚¹
 	if (hasOut) {
 		in(*redBranch->key);
 		delete redBranch->key;
@@ -346,11 +347,11 @@ bool LLRB<T>::do_R_downRed(Tree*& p, bool& out, Tree*& outnode, Tree* last)
 	if (!out && !p->r) {
 		outnode = p; last->r = 0x0; last->l->color = red; out = true; return true;
 	}
-	if (p->r && last) { toBalance(last->l); toBalance(last->r); }//ÒòÎªÒªÓÃ´Ë²Ù×÷Ê÷Ì®Ëú,Ôö¼Ó¸ùÇé¿ö
+	if (p->r && last) { toBalance(last->l); toBalance(last->r); }//å› ä¸ºè¦ç”¨æ­¤æ“ä½œæ ‘åå¡Œ,å¢åŠ æ ¹æƒ…å†µ
 	return true;
 }
 
-//¼ì²é×é¼ş
+//æ£€æŸ¥ç»„ä»¶
 template<typename T>
 bool LLRB<T>::getBlance(Tree* p, int deep, int truedeep)
 {
@@ -376,7 +377,7 @@ bool LLRB<T>::do_show(Tree* p)
 	return 1;
 }
 
-//¿ÉÑ¡¹¦ÄÜ,µ÷ÓÃshowQÀà
+//å¯é€‰åŠŸèƒ½,è°ƒç”¨showQç±»
 template<typename T>
 void LLRB<T>::Qs(Tree* p)
 {
@@ -411,7 +412,7 @@ int LLRB<T>::CheckBalance()
 	return truedeep;
 }
 
-//ÖØÔØ×é¼ş
+//é‡è½½ç»„ä»¶
 template<typename T>
 LLRB<T>& LLRB<T>::operator+(const T& key) { in(key); }
 template<typename T>
@@ -419,7 +420,7 @@ LLRB<T>& LLRB<T>::operator-(const T& key) { out(key); }
 
 #endif // !myLLRB
 
-//²âÊÔÆ÷
+//æµ‹è¯•å™¨
 /*
 #include<algorithm>
 int main() {

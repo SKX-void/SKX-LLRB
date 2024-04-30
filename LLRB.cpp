@@ -1,4 +1,4 @@
-//LLRB<T>5.2
+//LLRB<T>5.2.1    C++11
 //@author SKX
 #ifndef SKX_LLRB
 #define SKX_LLRB
@@ -70,9 +70,6 @@ private:
 		void show() { Que* p = root; while (p) { std::cout << p->show << '\n'; p = p->next; } }
 	};
 	void Que(Tree* p, showQue& s, int deep);
-	//设置非法操作
-	LLRB(const LLRB&){}//复制
-	LLRB& operator=(const LLRB&){}//赋值
 public:
 	//构造组件
 	LLRB<T>(const T& key);
@@ -90,6 +87,9 @@ public:
 	//重载组件
 	LLRB<T>& operator+(const T& key);
 	LLRB<T>& operator-(const T& key);
+	//设置非法操作
+    LLRB(const LLRB&){}=delete//复制
+    LLRB& operator=(const LLRB&){}=delete//赋值
 };
 //构造
 template<typename T>
